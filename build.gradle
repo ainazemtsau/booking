@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group 'com.itechart'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.mockito:mockito-core:2.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+task runApp(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+
+    mainClass = 'Main'
+
+}
+
+// Using and creating an Executable Jar
+jar {
+    manifest {
+        attributes('Main-Class': 'Main')
+    }
+}
+
+task run(type: JavaExec) {
+    classpath = files(tasks.jar)
+}
